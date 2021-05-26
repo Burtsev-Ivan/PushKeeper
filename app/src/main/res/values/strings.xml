@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Push keeper</string>
+    <string name="service_name">notifications service</string>
+</resources>
