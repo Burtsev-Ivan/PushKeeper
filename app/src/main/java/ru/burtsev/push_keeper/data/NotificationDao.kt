@@ -13,7 +13,7 @@ interface NotificationDao {
     suspend fun insertNotification(notificationEntity: NotificationEntity): Long
 
 
-    @Query("Select * from Notification")
+    @Query("Select * from Notification ORDER BY id DESC")
     fun getNotifications(): Flow<List<NotificationEntity>>
 
 }
