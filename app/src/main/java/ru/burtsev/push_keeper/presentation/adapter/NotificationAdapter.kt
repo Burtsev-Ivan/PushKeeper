@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.burtsev.push_keeper.data.NotificationEntity
 import ru.burtsev.push_keeper.databinding.ItemNotificationBinding
+import java.text.SimpleDateFormat
 
 
 class NotificationAdapter : RecyclerView.Adapter<NotificationViewHolder>() {
@@ -36,13 +37,14 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationViewHolder>() {
 
 class NotificationViewHolder(private val binding: ItemNotificationBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    private val formatter: SimpleDateFormat = SimpleDateFormat("dd.MM HH:mm:ss")
+
     fun bind(notification: NotificationEntity) {
         binding.tvApplicationName.text = notification.appName
         binding.tvTitle.text = notification.title
         binding.tvText.text = notification.text
+        binding.tvTime.text = formatter.format(notification.time)
         binding.imgAppIcon.setImageDrawable(getAppIcon(notification.packages))
-
-
     }
 
     private fun getAppIcon(packageName: String): Drawable? {

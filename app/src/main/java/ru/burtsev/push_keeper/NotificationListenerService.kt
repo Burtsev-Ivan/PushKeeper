@@ -28,11 +28,20 @@ class NotificationListenerService : android.service.notification.NotificationLis
         val packageName = sbn.packageName ?: ""
         val title: String = sbn.notification.extras[EXTRA_TITLE] as? String ?: ""
         val text: String = sbn.notification.extras[EXTRA_TEXT] as? String ?: ""
-        val entity =
-            NotificationEntity(0, packageName, getAppNameFromPkgName(applicationContext, packageName), title, text)
+        val time: Long = System.currentTimeMillis()
+        val entity = NotificationEntity(
+            id = 0,
+            packages = packageName,
+            appName = getAppNameFromPkgName(applicationContext, packageName),
+            title = title,
+            text = text,
+            time = time
+        )
 
-        CoroutineScope(Dispatchers.IO + Job()).launch {
-            notificationInteractor.insertNotifications(entity)
+        if (text.isNotBlank() && title.isNotBlank()) {
+            CoroutineScope(Dispatchers.IO + Job()).launch {
+                notificationInteractor.insertNotifications(entity)
+            }
         }
 
 //        Log.i(TAG, "**********  onNotificationPosted")
