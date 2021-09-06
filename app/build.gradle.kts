@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 30
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
-        applicationId("ru.burtsev.push_keeper")
-        minSdkVersion(23)
-        targetSdkVersion(30)
+        applicationId = "ru.burtsev.push_keeper"
+        minSdk = 23
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0"
 
@@ -25,7 +25,7 @@ android {
 
         }
     }
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
     android.buildFeatures.viewBinding = true
 }
 
@@ -34,14 +34,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
 
     implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
 
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("com.google.android.material:material:1.5.0-alpha01")
+    implementation("com.google.android.material:material:1.5.0-alpha02")
 
     //--------Room--------
     implementation("androidx.room:room-runtime:${Versions.roomVersion}")
