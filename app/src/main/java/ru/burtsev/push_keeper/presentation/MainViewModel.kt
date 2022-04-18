@@ -7,12 +7,9 @@ import kotlinx.coroutines.Dispatchers
 import ru.burtsev.push_keeper.data.NotificationEntity
 import ru.burtsev.push_keeper.domain.NotificationInteractor
 
-class MainViewModel(private val notificationInteractor: NotificationInteractor) : ViewModel() {
+class MainViewModel(notificationInteractor: NotificationInteractor) : ViewModel() {
 
-    var notificationLiveData: LiveData<List<NotificationEntity>>? = null
+    val notificationLiveData: LiveData<List<NotificationEntity>> =
+        notificationInteractor.getNotifications().asLiveData(Dispatchers.Main)
 
-
-    init {
-        notificationLiveData = notificationInteractor.getNotifications().asLiveData(Dispatchers.Main)
-    }
 }

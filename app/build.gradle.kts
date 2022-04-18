@@ -52,8 +52,8 @@ dependencies {
     //--------Room--------
 
     //--------Koin--------
-    implementation("org.koin:koin-core:${Versions.koinVersion}")
-    implementation("org.koin:koin-android-viewmodel:${Versions.koinVersion}")
+    implementation("io.insert-koin:koin-core:${Versions.koinVersion}")
+    implementation("io.insert-koin:koin-android:${Versions.koinVersion}")
     //--------Koin--------
 
     testImplementation("junit:junit:4.+")

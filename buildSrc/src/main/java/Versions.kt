@@ -4,6 +4,6 @@ object Versions {
     const val kotlin = "1.5.21"
 
     const val roomVersion = "2.3.0"
-    const val koinVersion = "2.2.2"
+    const val koinVersion = "3.1.6"
 
 }

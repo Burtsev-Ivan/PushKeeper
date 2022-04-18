@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.burtsev.push_keeper.databinding.MainFragmentBinding
 import ru.burtsev.push_keeper.presentation.adapter.NotificationAdapter
 
@@ -36,18 +36,14 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.rvNotification.layoutManager = LinearLayoutManager(requireContext())
         binding.rvNotification.adapter = adapter
+        viewModel.notificationLiveData.observe(viewLifecycleOwner) {
+            adapter.setData(it)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.notificationLiveData?.observe(viewLifecycleOwner, {
-            adapter.setData(it)
-        })
     }
 
 

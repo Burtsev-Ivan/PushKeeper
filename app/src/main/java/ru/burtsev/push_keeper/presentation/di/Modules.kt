@@ -1,6 +1,6 @@
 package ru.burtsev.push_keeper.presentation.di
 
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.burtsev.push_keeper.data.AppDatabase
 import ru.burtsev.push_keeper.domain.NotificationInteractor

@@ -3,12 +3,12 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     google()
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.0.2")
+    implementation("com.android.tools.build:gradle:7.0.4")
 }
 
 
