@@ -72,6 +72,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:${Versions.androidxCompose}")
     implementation("androidx.navigation:navigation-runtime-ktx:${Versions.navigationCompose}")
     implementation("androidx.navigation:navigation-compose:${Versions.navigationCompose}")
+    implementation("com.google.accompanist:accompanist-drawablepainter:0.19.0")
+
     //--------Compose--------
 
     testImplementation("junit:junit:4.+")
