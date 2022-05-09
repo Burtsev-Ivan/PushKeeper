@@ -1,9 +1,11 @@
 object Versions {
     //app level
-    const val gradle = "4.2.2"
-    const val kotlin = "1.5.21"
+    const val kotlin = "1.6.10"
 
-    const val roomVersion = "2.3.0"
-    const val koinVersion = "3.1.6"
+    const val roomVersion = "2.4.0"
+    const val koinVersion = "3.2.0"
+
+    const val androidxCompose = "1.1.1"
+    const val navigationCompose = "2.4.2"
 
 }

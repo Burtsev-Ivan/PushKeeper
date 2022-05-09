@@ -1,22 +1,28 @@
 package ru.burtsev.push_keeper
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import ru.burtsev.push_keeper.presentation.MainFragment
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import ru.burtsev.push_keeper.presentation.screens.ApplicationScreen
+import ru.burtsev.push_keeper.presentation.theme.PushKeeperTheme
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : ComponentActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        val intent = Intent(this, NotificationListenerService::class.java)
-//        startService(intent)
-
-        setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
+        setContent {
+            PushKeeperTheme {
+                ApplicationScreen()
+            }
         }
+
+//        setContentView(R.layout.main_activity)
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, MainFragment.newInstance())
+//                .commitNow()
+//        }
     }
 }

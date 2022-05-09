@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdk = 30
-    buildToolsVersion = "30.0.3"
+    compileSdk = 31
+    buildToolsVersion = "31.0.0"
 
     defaultConfig {
         applicationId = "ru.burtsev.push_keeper"
         minSdk = 23
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 
@@ -21,12 +21,18 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
         }
     }
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
     android.buildFeatures.viewBinding = true
+    android.buildFeatures.compose = true
+    composeOptions.kotlinCompilerExtensionVersion = Versions.androidxCompose
 }
 
 dependencies {
@@ -55,6 +61,18 @@ dependencies {
     implementation("io.insert-koin:koin-core:${Versions.koinVersion}")
     implementation("io.insert-koin:koin-android:${Versions.koinVersion}")
     //--------Koin--------
+
+    //--------Compose--------
+    implementation("androidx.compose.ui:ui:${Versions.androidxCompose}")
+    implementation("androidx.compose.ui:ui-tooling:${Versions.androidxCompose}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.androidxCompose}")
+    implementation("androidx.compose.material:material:${Versions.androidxCompose}")
+    implementation("androidx.activity:activity-compose:${Versions.androidxCompose}")
+    implementation("androidx.compose.runtime:runtime-livedata:${Versions.androidxCompose}")
+    implementation("androidx.navigation:navigation-compose:${Versions.androidxCompose}")
+    implementation("androidx.navigation:navigation-runtime-ktx:${Versions.navigationCompose}")
+    implementation("androidx.navigation:navigation-compose:${Versions.navigationCompose}")
+    //--------Compose--------
 
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
