@@ -1,7 +1,7 @@
-package ru.burtsev.push_keeper.domain.model.notification
+package ru.burtsev.push_keeper.data.db.notification
 
 import java.text.SimpleDateFormat
-import ru.burtsev.push_keeper.data.NotificationEntity
+import ru.burtsev.push_keeper.domain.model.notification.Notification
 
 object NotificationMapper {
     private val formatter = SimpleDateFormat("dd.MM HH:mm:ss")

@@ -1,4 +1,4 @@
-package ru.burtsev.push_keeper.data
+package ru.burtsev.push_keeper.data.db.notification
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import ru.burtsev.push_keeper.data.NotificationEntity
+import ru.burtsev.push_keeper.data.db.notification.NotificationEntity
 import ru.burtsev.push_keeper.domain.NotificationInteractor
 
 const val EXTRA_TITLE = "android.title"
