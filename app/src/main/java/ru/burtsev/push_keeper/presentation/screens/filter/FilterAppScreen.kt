@@ -48,6 +48,12 @@ fun FilterAppScreen(
                     Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
                 }
             },
+            actions = {
+                Checkbox(
+                    checked = viewState.isCheckedAll,
+                    onCheckedChange = { viewModel.onCheckedAll() }
+                )
+            },
             backgroundColor = Color.Transparent,
             contentColor = Color.Gray,
             elevation = 2.dp
@@ -113,9 +119,7 @@ fun ApplicationItem(appInfo: AppInfo) {
             )
             Checkbox(
                 checked = appInfo.isEnabled,
-                onCheckedChange = { checked ->
-                    viewModel.onCheckedChange(appInfo)
-                }
+                onCheckedChange = { viewModel.onCheckedChange(appInfo) }
             )
         }
 

@@ -16,9 +16,31 @@ class FilterAppViewModel(private val notificationInteractor: NotificationInterac
     init {
         viewModelScope.launch {
             val apps = notificationInteractor.getApps()
+            val isCheckedAll = apps.all { it.isEnabled }
             val viewState = _appInfoLiveData.value?.copy(
                 isLoading = false,
-                apps = apps
+                apps = apps,
+                isCheckedAll = isCheckedAll,
+            )
+            _appInfoLiveData.postValue(viewState)
+        }
+    }
+
+    // Изменяем значение isEnabled у всех элементов
+    fun onCheckedAll() {
+        val apps = _appInfoLiveData.value?.apps ?: return
+        if (apps.all { it.isEnabled }) {
+            val appAllEnabled = apps.map { it.copy(isEnabled = false) }
+            val viewState = _appInfoLiveData.value?.copy(
+                apps = appAllEnabled,
+                isCheckedAll = false,
+            )
+            _appInfoLiveData.postValue(viewState)
+        } else {
+            val appAllEnabled = apps.map { it.copy(isEnabled = true) }
+            val viewState = _appInfoLiveData.value?.copy(
+                apps = appAllEnabled,
+                isCheckedAll = true,
             )
             _appInfoLiveData.postValue(viewState)
         }
@@ -33,7 +55,9 @@ class FilterAppViewModel(private val notificationInteractor: NotificationInterac
             val mutableApps = apps.toMutableList().apply { removeAt(index) }
             val newAppInfo = apps[index].copy(isEnabled = !apps[index].isEnabled)
             mutableApps.add(index, newAppInfo)
-            val viewState = _appInfoLiveData.value?.copy(apps = mutableApps)
+            val isCheckedAll = mutableApps.all { it.isEnabled }
+            val viewState =
+                _appInfoLiveData.value?.copy(apps = mutableApps, isCheckedAll = isCheckedAll)
             _appInfoLiveData.postValue(viewState)
         }
     }
@@ -49,6 +73,5 @@ class FilterAppViewModel(private val notificationInteractor: NotificationInterac
         }
 
     }
-
 
 }
