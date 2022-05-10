@@ -6,7 +6,7 @@ import ru.burtsev.push_keeper.data.AppDatabase
 import ru.burtsev.push_keeper.domain.NotificationInteractor
 import ru.burtsev.push_keeper.domain.NotificationRepository
 import ru.burtsev.push_keeper.domain.NotificationRepositoryImpl
-import ru.burtsev.push_keeper.presentation.MainViewModel
+import ru.burtsev.push_keeper.presentation.screens.notifications.NotificationsViewModel
 
 
 val appModule = module {
@@ -14,5 +14,5 @@ val appModule = module {
     single<AppDatabase> { AppDatabase.createInstance(get()) }
     single<NotificationRepository> { NotificationRepositoryImpl(get()) }
     factory { NotificationInteractor(get()) }
-    viewModel { MainViewModel(get()) }
+    viewModel { NotificationsViewModel(get()) }
 }

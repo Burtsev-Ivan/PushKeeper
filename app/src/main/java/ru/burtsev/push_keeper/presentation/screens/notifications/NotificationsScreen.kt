@@ -1,4 +1,4 @@
-package ru.burtsev.push_keeper.presentation.screens.notification
+package ru.burtsev.push_keeper.presentation.screens.notifications
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -27,15 +27,14 @@ import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import java.text.SimpleDateFormat
 import java.util.*
 import ru.burtsev.push_keeper.data.NotificationEntity
-import ru.burtsev.push_keeper.presentation.MainViewModel
 import ru.burtsev.push_keeper.presentation.di.koinViewModel
 
 private val formatter: SimpleDateFormat = SimpleDateFormat("dd.MM HH:mm:ss", Locale.getDefault())
 
 @Composable
-fun NotificationScreen(
+fun NotificationsScreen(
     navController: NavHostController,
-    viewModel: MainViewModel = koinViewModel(),
+    viewModel: NotificationsViewModel = koinViewModel(),
 ) {
 
     val viewState = viewModel.notificationLiveData.observeAsState()
