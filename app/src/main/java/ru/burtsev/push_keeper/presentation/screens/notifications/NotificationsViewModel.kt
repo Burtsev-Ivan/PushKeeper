@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.Dispatchers
 import ru.burtsev.push_keeper.domain.NotificationInteractor
-import ru.burtsev.push_keeper.domain.model.Notification
+import ru.burtsev.push_keeper.domain.model.notification.Notification
 
 class NotificationsViewModel(notificationInteractor: NotificationInteractor) : ViewModel() {
 

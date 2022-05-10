@@ -1,4 +1,4 @@
-package ru.burtsev.push_keeper.domain.model
+package ru.burtsev.push_keeper.domain.model.notification
 
 import java.text.SimpleDateFormat
 import ru.burtsev.push_keeper.data.NotificationEntity

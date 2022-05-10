@@ -7,4 +7,5 @@ sealed class Screen(
     val args: Bundle? = null,
 ) {
     object Main : Screen("main")
+    object Filter : Screen("filterApps")
 }

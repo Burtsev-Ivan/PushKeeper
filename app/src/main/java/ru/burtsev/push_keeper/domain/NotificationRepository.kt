@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.burtsev.push_keeper.data.AppDatabase
 import ru.burtsev.push_keeper.data.NotificationEntity
-import ru.burtsev.push_keeper.domain.model.Notification
-import ru.burtsev.push_keeper.domain.model.NotificationMapper
+import ru.burtsev.push_keeper.domain.model.notification.Notification
+import ru.burtsev.push_keeper.domain.model.notification.NotificationMapper
 
 interface NotificationRepository {
     fun getNotifications(): Flow<List<Notification>>
