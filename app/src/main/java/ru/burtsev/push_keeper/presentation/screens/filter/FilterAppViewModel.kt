@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.burtsev.push_keeper.domain.NotificationInteractor
+import ru.burtsev.push_keeper.domain.model.app.AppInfo
 
 class FilterAppViewModel(private val notificationInteractor: NotificationInteractor) : ViewModel() {
 
@@ -22,5 +23,32 @@ class FilterAppViewModel(private val notificationInteractor: NotificationInterac
             _appInfoLiveData.postValue(viewState)
         }
     }
+
+    // Изменяем значение isEnabled у нажатого элемента AppInfo (Удаляем старый и
+    // добавляем новый элемент с измененным значением )
+    fun onCheckedChange(appInfo: AppInfo) {
+        val apps = _appInfoLiveData.value?.apps ?: return
+        apps.indexOfFirst { it.packages == appInfo.packages }.let { index ->
+            if (index == -1) return@let
+            val mutableApps = apps.toMutableList().apply { removeAt(index) }
+            val newAppInfo = apps[index].copy(isEnabled = !apps[index].isEnabled)
+            mutableApps.add(index, newAppInfo)
+            val viewState = _appInfoLiveData.value?.copy(apps = mutableApps)
+            _appInfoLiveData.postValue(viewState)
+        }
+    }
+
+    fun onSaveClick() {
+        val apps = _appInfoLiveData.value?.apps ?: return
+        viewModelScope.launch {
+            notificationInteractor.saveFilterAppInfo(apps)
+            val viewState = _appInfoLiveData.value?.copy(
+                event = Event.GoBack,
+            )
+            _appInfoLiveData.postValue(viewState)
+        }
+
+    }
+
 
 }

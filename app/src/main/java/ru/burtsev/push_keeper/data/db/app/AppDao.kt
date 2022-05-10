@@ -15,4 +15,7 @@ interface AppDao {
     @Query("Select * from Application ORDER BY id DESC")
     suspend fun getApps(): List<AppEntity>
 
+    @Query("Update Application SET isEnabled = :isEnable WHERE id = :id")
+    suspend fun updateIsEnableFlag(id: Long, isEnable: Boolean)
+
 }

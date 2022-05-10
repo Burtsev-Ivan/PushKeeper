@@ -8,9 +8,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -23,12 +22,22 @@ import ru.burtsev.push_keeper.domain.model.app.AppInfo
 import ru.burtsev.push_keeper.presentation.common.AppImage
 import ru.burtsev.push_keeper.presentation.di.koinViewModel
 
+private lateinit var viewModel: FilterAppViewModel
+
 @Composable
 fun FilterAppScreen(
     navController: NavHostController,
-    viewModel: FilterAppViewModel = koinViewModel(),
+    vm: FilterAppViewModel = koinViewModel(),
 ) {
+    viewModel = vm
     val viewState = viewModel.appInfoLiveData.observeAsState().value ?: return
+
+    LaunchedEffect(viewState.event) {
+        when (viewState.event) {
+            Event.GoBack -> navController.popBackStack()
+            null -> {}
+        }
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -74,7 +83,7 @@ private fun ColumnScope.AppsView(viewState: FilterAppViewState) {
         .padding(horizontal = 8.dp, vertical = 8.dp)
         .defaultMinSize(minHeight = 48.dp)
         .fillMaxWidth(),
-        onClick = { }
+        onClick = { viewModel.onSaveClick() }
     ) {
         Text(text = "Сохранить")
     }
@@ -82,8 +91,6 @@ private fun ColumnScope.AppsView(viewState: FilterAppViewState) {
 
 @Composable
 fun ApplicationItem(appInfo: AppInfo) {
-    val checkedState = remember { mutableStateOf(appInfo.isEnabled) }
-
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
@@ -105,8 +112,11 @@ fun ApplicationItem(appInfo: AppInfo) {
                 style = MaterialTheme.typography.body1,
             )
             Checkbox(
-                checked = checkedState.value,
-                onCheckedChange = { checked -> checkedState.value = checked })
+                checked = appInfo.isEnabled,
+                onCheckedChange = { checked ->
+                    viewModel.onCheckedChange(appInfo)
+                }
+            )
         }
 
     }
@@ -118,6 +128,7 @@ fun ApplicationItem(appInfo: AppInfo) {
 fun AppInfoItem_Preview() {
     ApplicationItem(
         AppInfo(
+            id = 0,
             packages = "dasadasdasd",
             appName = "Viber",
             isEnabled = true

@@ -13,11 +13,13 @@ import ru.burtsev.push_keeper.domain.model.notification.Notification
 interface NotificationRepository {
     fun getNotifications(): Flow<List<Notification>>
 
-    suspend fun getApps(): Set<AppInfo>
+    suspend fun getApps(): List<AppInfo>
 
     suspend fun insertNotifications(entity: NotificationEntity): Long
 
     suspend fun insertApp(appInfo: AppInfo): Long
+
+    suspend fun updateApp(appInfo: AppInfo)
 }
 
 class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository {
@@ -31,7 +33,7 @@ class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository
         }
     }
 
-    override suspend fun getApps(): Set<AppInfo> {
+    override suspend fun getApps(): List<AppInfo> {
         val apps = appDao.getApps()
         return AppInfoMapper.mapToDomain(apps)
     }
@@ -48,6 +50,10 @@ class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository
             isEnabled = appInfo.isEnabled,
         )
         return appDao.insertApp(entity)
+    }
+
+    override suspend fun updateApp(appInfo: AppInfo) {
+        appDao.updateIsEnableFlag(appInfo.id, appInfo.isEnabled)
     }
 
 

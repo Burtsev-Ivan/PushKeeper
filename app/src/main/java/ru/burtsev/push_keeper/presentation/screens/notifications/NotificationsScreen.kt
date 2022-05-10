@@ -29,7 +29,7 @@ fun NotificationsScreen(
     Column {
 
         TopAppBar(
-            title = { },
+            title = { Text(text = "Уведомления") },
             navigationIcon = null,
             actions = {
                 IconButton(onClick = { navController.navigate(route = Screen.Filter.route) }) {
@@ -41,7 +41,7 @@ fun NotificationsScreen(
             elevation = 2.dp
         )
 
-        LazyColumn {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
             viewState.value?.forEach {
                 item {
                     NotificationCardItem(it)
