@@ -24,12 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import java.text.SimpleDateFormat
-import java.util.*
-import ru.burtsev.push_keeper.data.NotificationEntity
+import ru.burtsev.push_keeper.domain.model.Notification
 import ru.burtsev.push_keeper.presentation.di.koinViewModel
-
-private val formatter: SimpleDateFormat = SimpleDateFormat("dd.MM HH:mm:ss", Locale.getDefault())
 
 @Composable
 fun NotificationsScreen(
@@ -46,12 +42,10 @@ fun NotificationsScreen(
         }
 
     }
-
 }
 
-
 @Composable
-fun NotificationCardItem(model: NotificationEntity) {
+fun NotificationCardItem(model: Notification) {
 
     Card(
         modifier = Modifier
@@ -85,8 +79,7 @@ fun NotificationCardItem(model: NotificationEntity) {
                                 .wrapContentSize(),
                             style = MaterialTheme.typography.subtitle2,
                         )
-                        val time = formatter.format(model.time)
-                        Text(text = time)
+                        Text(text = model.time)
                     }
 
                     Text(text = model.title, Modifier.padding(8.dp, 8.dp, 0.dp, 0.dp))
@@ -130,13 +123,13 @@ private fun getAppIcon(context: Context, packageName: String): Drawable? {
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 fun NotificationCardItem_Preview() {
     NotificationCardItem(
-        NotificationEntity(
+        Notification(
             id = 1,
             packages = "dasadasdasd",
             appName = "Viber",
             title = "Илья Ковалев",
             text = "Поделился с вами записью",
-            time = 61165L,
+            time = "10.05 12:12:01",
         )
     )
 }
