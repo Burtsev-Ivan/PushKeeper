@@ -53,24 +53,3 @@ inline fun <reified T : ViewModel> koinViewModel(
 ): T {
     return getViewModel(qualifier, owner, scope, parameters)
 }
-
-//@OptIn(KoinInternalApi::class)
-//@Composable
-//inline fun <reified T : ViewModel> viewModel(
-//    qualifier: Qualifier? = null,
-//    owner: ViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
-//        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
-//    },
-//    scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
-//    noinline parameters: ParametersDefinition? = null
-//): Lazy<T> {
-//    remember(qualifier, parameters) {
-//        return lazy {
-//            val vmClazz = T::class
-//            val factory = getViewModelFactory(
-//                owner, vmClazz, qualifier, parameters, scope = scope
-//            )
-//            ViewModelProvider(owner, factory).get(vmClazz.java)
-//        }
-//    }
-//}

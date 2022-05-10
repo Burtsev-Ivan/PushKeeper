@@ -9,7 +9,6 @@ import ru.burtsev.push_keeper.presentation.theme.PushKeeperTheme
 
 class MainActivity : ComponentActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -17,12 +16,6 @@ class MainActivity : ComponentActivity() {
                 ApplicationScreen()
             }
         }
-
-//        setContentView(R.layout.main_activity)
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, MainFragment.newInstance())
-//                .commitNow()
-//        }
     }
+
 }

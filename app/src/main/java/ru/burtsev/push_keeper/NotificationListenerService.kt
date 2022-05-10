@@ -12,13 +12,8 @@ import org.koin.android.ext.android.inject
 import ru.burtsev.push_keeper.data.NotificationEntity
 import ru.burtsev.push_keeper.domain.NotificationInteractor
 
-
-private val TAG: String = "LOG"
-
 const val EXTRA_TITLE = "android.title"
 const val EXTRA_TEXT = "android.text"
-const val EXTRA_SUB_TEXT = "android.subText"
-const val EXTRA_LARGE_ICON = "android.largeIcon"
 
 class NotificationListenerService : android.service.notification.NotificationListenerService() {
 
@@ -43,14 +38,7 @@ class NotificationListenerService : android.service.notification.NotificationLis
                 notificationInteractor.insertNotifications(entity)
             }
         }
-
-//        Log.i(TAG, "**********  onNotificationPosted")
-//        Log.i(TAG, "ID :" + sbn.id + "\t" + sbn.notification.tickerText + "\t" + sbn.packageName)
-//        Log.i(TAG, "TITLE : " + sbn.notification.extras[EXTRA_TITLE])
-//        Log.i(TAG, "TEXT : " + sbn.notification.extras[EXTRA_TEXT])
-
     }
-
 
     private fun getAppNameFromPkgName(context: Context, packageName: String?): String {
         return try {
@@ -63,6 +51,4 @@ class NotificationListenerService : android.service.notification.NotificationLis
             ""
         }
     }
-
-
 }
