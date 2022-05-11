@@ -2,6 +2,8 @@ package ru.burtsev.push_keeper.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import ru.burtsev.push_keeper.data.db.AppDatabase
 import ru.burtsev.push_keeper.data.db.app.AppEntity
 import ru.burtsev.push_keeper.data.db.app.AppInfoMapper
@@ -24,6 +26,8 @@ interface NotificationRepository {
 
 class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository {
 
+    private val mutex = Mutex()
+
     private val notificationDao = database.getNotificationDao()
     private val appDao = database.getAppDao()
 
@@ -43,18 +47,20 @@ class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository
     }
 
     override suspend fun insertApp(appInfo: AppInfo): Long {
-        val entity = AppEntity(
-            id = 0,
-            packages = appInfo.packages,
-            appName = appInfo.appName,
-            isEnabled = appInfo.isEnabled,
-        )
-        return appDao.insertApp(entity)
+        mutex.withLock {
+            appDao.getAppByPackages(appInfo.packages)?.let { return it.id }
+            val entity = AppEntity(
+                id = 0,
+                packages = appInfo.packages,
+                appName = appInfo.appName,
+                isEnabled = appInfo.isEnabled,
+            )
+            return appDao.insertApp(entity)
+        }
     }
 
     override suspend fun updateApp(appInfo: AppInfo) {
         appDao.updateIsEnableFlag(appInfo.id, appInfo.isEnabled)
     }
-
 
 }

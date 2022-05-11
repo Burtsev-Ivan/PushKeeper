@@ -12,22 +12,19 @@ class NotificationInteractor(private val notificationRepository: NotificationRep
     }
 
     suspend fun getApps(): List<AppInfo> {
-        return notificationRepository.getApps().toSet().toList()
+        return notificationRepository.getApps()
     }
 
     suspend fun insertNotifications(entity: NotificationEntity): Long {
         val notificationId = notificationRepository.insertNotifications(entity)
-        val apps = getApps()
-        if (apps.all { it.packages != entity.packages }) {
-            notificationRepository.insertApp(
-                AppInfo(
-                    id = 0,
-                    packages = entity.packages,
-                    appName = entity.appName,
-                    isEnabled = true
-                )
+        notificationRepository.insertApp(
+            AppInfo(
+                id = 0,
+                packages = entity.packages,
+                appName = entity.appName,
+                isEnabled = true
             )
-        }
+        )
         return notificationId
     }
 

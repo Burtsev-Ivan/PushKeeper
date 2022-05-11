@@ -11,9 +11,11 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertApp(appEntity: AppEntity): Long
 
-
     @Query("Select * from Application ORDER BY id DESC")
     suspend fun getApps(): List<AppEntity>
+
+    @Query("SELECT * FROM Application WHERE packages LIKE '%' || :packages || '%' LIMIT 1")
+    suspend fun getAppByPackages(packages: String): AppEntity?
 
     @Query("Update Application SET isEnabled = :isEnable WHERE id = :id")
     suspend fun updateIsEnableFlag(id: Long, isEnable: Boolean)
