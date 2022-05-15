@@ -1,5 +1,9 @@
 package ru.burtsev.push_keeper.domain
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
@@ -13,7 +17,7 @@ import ru.burtsev.push_keeper.domain.model.app.AppInfo
 import ru.burtsev.push_keeper.domain.model.notification.Notification
 
 interface NotificationRepository {
-    fun getNotifications(): Flow<List<Notification>>
+    fun getNotifications(): Flow<PagingData<Notification>>
 
     suspend fun getApps(): List<AppInfo>
 
@@ -24,6 +28,8 @@ interface NotificationRepository {
     suspend fun updateApp(appInfo: AppInfo)
 }
 
+private const val PAGE_SIZE = 15
+
 class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository {
 
     private val mutex = Mutex()
@@ -31,9 +37,15 @@ class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository
     private val notificationDao = database.getNotificationDao()
     private val appDao = database.getAppDao()
 
-    override fun getNotifications(): Flow<List<Notification>> {
-        return notificationDao.getNotifications().map {
-            NotificationMapper.mapToDomain(it)
+    override fun getNotifications(): Flow<PagingData<Notification>> {
+        val pagingSourceFactory = { notificationDao.getNotifications() }
+        return Pager(
+            config = PagingConfig(pageSize = PAGE_SIZE),
+            pagingSourceFactory = pagingSourceFactory,
+        ).flow.map { pagingData: PagingData<NotificationEntity> ->
+            pagingData.map { notificationEntity ->
+                NotificationMapper.mapToDomain(notificationEntity)
+            }
         }
     }
 

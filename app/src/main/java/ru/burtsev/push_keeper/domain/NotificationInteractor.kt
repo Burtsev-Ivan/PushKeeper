@@ -1,5 +1,6 @@
 package ru.burtsev.push_keeper.domain
 
+import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import ru.burtsev.push_keeper.data.db.notification.NotificationEntity
 import ru.burtsev.push_keeper.domain.model.app.AppInfo
@@ -7,7 +8,7 @@ import ru.burtsev.push_keeper.domain.model.notification.Notification
 
 class NotificationInteractor(private val notificationRepository: NotificationRepository) {
 
-    fun getNotifications(): Flow<List<Notification>> {
+    fun getNotifications(): Flow<PagingData<Notification>> {
         return notificationRepository.getNotifications()
     }
 

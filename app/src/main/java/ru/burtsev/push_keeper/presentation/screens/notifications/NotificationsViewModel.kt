@@ -1,15 +1,14 @@
 package ru.burtsev.push_keeper.presentation.screens.notifications
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import kotlinx.coroutines.Dispatchers
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import ru.burtsev.push_keeper.domain.NotificationInteractor
 import ru.burtsev.push_keeper.domain.model.notification.Notification
 
 class NotificationsViewModel(notificationInteractor: NotificationInteractor) : ViewModel() {
 
-    val notificationLiveData: LiveData<List<Notification>> =
-        notificationInteractor.getNotifications().asLiveData(Dispatchers.Main)
+    val notificationFlow: Flow<PagingData<Notification>> =
+        notificationInteractor.getNotifications()
 
 }

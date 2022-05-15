@@ -8,13 +8,14 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import ru.burtsev.push_keeper.domain.model.notification.Notification
 import ru.burtsev.push_keeper.presentation.common.AppImage
 import ru.burtsev.push_keeper.presentation.di.koinViewModel
@@ -25,7 +26,7 @@ fun NotificationsScreen(
     navController: NavHostController,
     viewModel: NotificationsViewModel = koinViewModel(),
 ) {
-    val viewState = viewModel.notificationLiveData.observeAsState()
+    val lazyPagingItems = viewModel.notificationFlow.collectAsLazyPagingItems()
     Column {
 
         TopAppBar(
@@ -42,11 +43,12 @@ fun NotificationsScreen(
         )
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            viewState.value?.forEach {
-                item {
-                    NotificationCardItem(it)
+            items(
+                items = lazyPagingItems,
+                itemContent = { value ->
+                    value?.let { NotificationCardItem(it) }
                 }
-            }
+            )
         }
 
     }

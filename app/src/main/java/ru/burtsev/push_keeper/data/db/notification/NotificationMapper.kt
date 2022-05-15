@@ -6,12 +6,7 @@ import ru.burtsev.push_keeper.domain.model.notification.Notification
 object NotificationMapper {
     private val formatter = SimpleDateFormat("dd.MM HH:mm:ss")
 
-    fun mapToDomain(list: List<NotificationEntity>): List<Notification> {
-        return list.map { mapToDomain(it) }
-    }
-
-    private fun mapToDomain(notificationEntity: NotificationEntity): Notification {
-
+    fun mapToDomain(notificationEntity: NotificationEntity): Notification {
         return Notification(
             id = notificationEntity.id,
             packages = notificationEntity.packages,

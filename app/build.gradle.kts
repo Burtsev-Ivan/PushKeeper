@@ -39,22 +39,18 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
 
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.6.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
 
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("com.google.android.material:material:1.5.0-alpha02")
 
     //--------Room--------
     implementation("androidx.room:room-runtime:${Versions.roomVersion}")
-    // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:${Versions.roomVersion}")
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:${Versions.roomVersion}")
+    implementation("androidx.room:room-paging:${Versions.roomVersion}")
     //--------Room--------
 
     //--------Koin--------
@@ -73,8 +69,12 @@ dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:${Versions.navigationCompose}")
     implementation("androidx.navigation:navigation-compose:${Versions.navigationCompose}")
     implementation("com.google.accompanist:accompanist-drawablepainter:0.19.0")
-
     //--------Compose--------
+
+    //--------Paging 3.0--------
+    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
+    //--------Paging 3.0--------
+
 
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
