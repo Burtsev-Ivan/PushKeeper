@@ -1,4 +1,4 @@
-package ru.burtsev.push_keeper.presentation.screens.filter
+package ru.burtsev.push_keeper.presentation.screens.filter.app
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,14 +22,12 @@ import ru.burtsev.push_keeper.domain.model.app.AppInfo
 import ru.burtsev.push_keeper.presentation.common.AppImage
 import ru.burtsev.push_keeper.presentation.di.koinViewModel
 
-private lateinit var viewModel: FilterAppViewModel
 
 @Composable
 fun FilterAppScreen(
     navController: NavHostController,
-    vm: FilterAppViewModel = koinViewModel(),
+    viewModel: FilterAppViewModel = koinViewModel(),
 ) {
-    viewModel = vm
     val viewState = viewModel.appInfoLiveData.observeAsState().value ?: return
 
     LaunchedEffect(viewState.event) {
@@ -62,7 +60,11 @@ fun FilterAppScreen(
         if (viewState.isLoading) {
             LoadingView()
         } else {
-            AppsView(viewState)
+            AppsView(
+                viewState = viewState,
+                onCheckedChange = { appInfo -> viewModel.onCheckedChange(appInfo) },
+                onSaveClick = { viewModel.onSaveClick() }
+            )
         }
     }
 
@@ -76,27 +78,35 @@ private fun LoadingView() {
 }
 
 @Composable
-private fun ColumnScope.AppsView(viewState: FilterAppViewState) {
+private fun ColumnScope.AppsView(
+    viewState: FilterAppViewState,
+    onCheckedChange: (AppInfo) -> Unit,
+    onSaveClick: () -> Unit,
+) {
     LazyColumn(modifier = Modifier.Companion.weight(1f)) {
         viewState.apps.forEach {
             item {
-                ApplicationItem(it)
+                ApplicationItem(it, onCheckedChange)
             }
         }
     }
 
-    Button(modifier = Modifier
-        .padding(horizontal = 8.dp, vertical = 8.dp)
-        .defaultMinSize(minHeight = 48.dp)
-        .fillMaxWidth(),
-        onClick = { viewModel.onSaveClick() }
+    Button(
+        modifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .defaultMinSize(minHeight = 48.dp)
+            .fillMaxWidth(),
+        onClick = { onSaveClick() }
     ) {
         Text(text = "Сохранить")
     }
 }
 
 @Composable
-fun ApplicationItem(appInfo: AppInfo) {
+fun ApplicationItem(
+    appInfo: AppInfo,
+    onCheckedChange: (AppInfo) -> Unit,
+) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
@@ -119,7 +129,7 @@ fun ApplicationItem(appInfo: AppInfo) {
             )
             Checkbox(
                 checked = appInfo.isEnabled,
-                onCheckedChange = { viewModel.onCheckedChange(appInfo) }
+                onCheckedChange = { onCheckedChange(appInfo) }
             )
         }
 
@@ -136,6 +146,7 @@ fun AppInfoItem_Preview() {
             packages = "dasadasdasd",
             appName = "Viber",
             isEnabled = true
-        )
+        ),
+        onCheckedChange = { },
     )
 }

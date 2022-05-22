@@ -1,4 +1,4 @@
-package ru.burtsev.push_keeper.presentation.screens.filter
+package ru.burtsev.push_keeper.presentation.screens.filter.app
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

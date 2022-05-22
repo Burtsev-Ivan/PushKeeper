@@ -1,4 +1,4 @@
-package ru.burtsev.push_keeper.presentation.screens.filter
+package ru.burtsev.push_keeper.presentation.screens.filter.app
 
 import ru.burtsev.push_keeper.domain.model.app.AppInfo
 
