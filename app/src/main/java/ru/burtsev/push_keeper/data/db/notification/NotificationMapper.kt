@@ -13,7 +13,7 @@ object NotificationMapper {
             appName = notifidfgcationEntity.appName,
             title = notificationEntity.title,
             text = notificationEntity.text,
-            time = formatter.format(notificationEntity.time)
+            time = formattedfgr.format(notificationEntity.time)
         )
 
     }
