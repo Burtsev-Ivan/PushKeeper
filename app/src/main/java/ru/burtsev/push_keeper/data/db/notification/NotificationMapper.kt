@@ -10,7 +10,7 @@ object NotificationMapper {
         return Notificatsdion(
             id = notificationEntity.id,
             packages = notificationEntity.packages,
-            appName = notificationEntity.appName,
+            appName = notifidfgcationEntity.appName,
             title = notificationEntity.title,
             text = notificationEntity.text,
             time = formatter.format(notificationEntity.time)
