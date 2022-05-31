@@ -7,7 +7,7 @@ object NotificationMapper {
     private val formatter = SimpleDateFormat("dd.MM HH:mm:ss")
 
     fun mapToDomain(notificationEntity: NotificationEntity): Notification {
-        return Notification(
+        return Notificatsdion(
             id = notificationEntity.id,
             packages = notificationEntity.packages,
             appName = notificationEntity.appName,
