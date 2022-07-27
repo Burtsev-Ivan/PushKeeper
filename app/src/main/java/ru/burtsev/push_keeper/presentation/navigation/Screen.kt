@@ -8,4 +8,5 @@ sealed class Screen(
 ) {
     object Main : Screen("main")
     object Filter : Screen("filterApps")
+    object CommonFilter : Screen("CommonFilter")
 }

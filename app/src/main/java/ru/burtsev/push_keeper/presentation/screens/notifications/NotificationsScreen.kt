@@ -11,11 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import ru.burtsev.push_keeper.R
 import ru.burtsev.push_keeper.domain.model.notification.Notification
 import ru.burtsev.push_keeper.presentation.common.AppImage
 import ru.burtsev.push_keeper.presentation.di.koinViewModel
@@ -33,6 +35,13 @@ fun NotificationsScreen(
             title = { Text(text = "Уведомления") },
             navigationIcon = null,
             actions = {
+                IconButton(onClick = { navController.navigate(route = Screen.CommonFilter.route) }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_filter),
+                        contentDescription = "Filter"
+                    )
+                }
+
                 IconButton(onClick = { navController.navigate(route = Screen.Filter.route) }) {
                     Icon(imageVector = Icons.Filled.Settings, contentDescription = "Filter")
                 }

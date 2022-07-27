@@ -7,6 +7,7 @@ import ru.burtsev.push_keeper.domain.NotificationInteractor
 import ru.burtsev.push_keeper.domain.NotificationRepository
 import ru.burtsev.push_keeper.domain.NotificationRepositoryImpl
 import ru.burtsev.push_keeper.presentation.screens.filter.app.FilterAppViewModel
+import ru.burtsev.push_keeper.presentation.screens.filter.common.CommonFilterViewModel
 import ru.burtsev.push_keeper.presentation.screens.notifications.NotificationsViewModel
 
 
@@ -17,4 +18,5 @@ val appModule = module {
     factory { NotificationInteractor(get()) }
     viewModel { NotificationsViewModel(get()) }
     viewModel { FilterAppViewModel(get()) }
+    viewModel { CommonFilterViewModel(get()) }
 }
