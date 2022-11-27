@@ -13,7 +13,7 @@ interface NotificationDao {
     suspend fun insertNotification(notificationEntity: NotificationEntity): Long
 
 
-    @Query("Select Notification.* from Notification, Application Where Notification.packages=Application.packages And Application.isEnabled=1  ORDER BY id DESC")
+    @Query("Select * from Notification, Application Where Notification.packages=Application.packages And Application.isEnabled=1  ORDER BY id DESC")
     fun getNotifications(): PagingSource<Int, NotificationEntity>
 
 }

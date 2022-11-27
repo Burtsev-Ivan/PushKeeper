@@ -8,8 +8,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.2.1")
-    implementation(kotlin("gradle-plugin", "1.6.10"))
+    implementation("com.android.tools.build:gradle:7.3.1")
+    implementation(kotlin("gradle-plugin", "1.7.0"))
 }
 
 
