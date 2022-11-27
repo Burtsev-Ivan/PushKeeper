@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import java.util.concurrent.Executors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
@@ -29,6 +30,8 @@ interface NotificationRepository {
 }
 
 private const val PAGE_SIZE = 15
+private const val DEFAULT_THREAD_POOL_SIZE = 4
+
 
 class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository {
 
@@ -42,11 +45,15 @@ class NotificationRepositoryImpl(database: AppDatabase) : NotificationRepository
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
             pagingSourceFactory = pagingSourceFactory,
-        ).flow.map { pagingData: PagingData<NotificationEntity> ->
-            pagingData.map { notificationEntity ->
-                NotificationMapper.mapToDomain(notificationEntity)
+        ).flow
+            .map { pagingData: PagingData<NotificationEntity> ->
+                pagingData.map(
+                    executor = Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE),
+                    transform = { notificationEntity ->
+                        NotificationMapper.mapToDomain(notificationEntity)
+                    },
+                )
             }
-        }
     }
 
     override suspend fun getApps(): List<AppInfo> {
